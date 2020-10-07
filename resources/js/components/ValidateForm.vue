@@ -25,7 +25,7 @@
                 <td>{{ user.cpf }}</td>
                 <td>
                     <vue-tags-input
-                        :tags="user.competences"
+                        :tags="user.competences[0]"
                         readonly
                         placeholder=""
                         disabled
@@ -73,8 +73,8 @@
                             this.users = response.data
                         })
             },
-            validateRegister(id) {
-                axios
+            async validateRegister(id) {
+                await axios
                     .put(`http://127.0.0.1:8000/api/validate/user/${id}`)
                     .then(response => {
                        this.getAllUsersData()
@@ -95,12 +95,10 @@
                         option.name,
                         option.phone,
                         option.cpf,
-                        option.email,
-                        option.competences
+                        option.email
                     ].map(toScore => fz.score(toScore, this.search, { preparedQuery }))
 
-                    scores[option.id] = Math.max(...scorableFields)
-
+                    scores[option.id] = Math.max(...scorableFields, ...competences)
                     return option
                     })
                     .filter(option => scores[option.id] > 1)

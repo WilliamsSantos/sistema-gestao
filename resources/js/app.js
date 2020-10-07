@@ -10,8 +10,6 @@ import { VueMaskDirective } from 'v-mask';
 Vue.directive('mask', VueMaskDirective);
 Vue.use(VueRouter);
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
 export const router = new VueRouter({
     mode: 'history',
     routes: routes

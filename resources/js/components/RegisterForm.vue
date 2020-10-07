@@ -10,30 +10,30 @@
                     <form @submit.prevent="createUser">
                         <div class="form-group">
                             <label>Nome: <b color="red" class="require-class">*</b></label>
-                            <input type="text" class="form-control" v-model="user.name" required aria-required="Nome obrigatório.">
+                            <input type="text" class="form-control" placeholder="Ex: Pedro" v-model="user.name" required aria-required="Nome obrigatório.">
                             <div v-if="errors.name" class="error-message">
-                                <i>{{ errors.name }}</i>
+                                <i>{{ errors.name[0] }}</i>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Email:<b color="red" class="require-class">*</b></label>
-                            <input type="email" class="form-control" v-model="user.email" required aria-required="O email precisa estar preenchido!">
+                            <input type="email" class="form-control" v-model="user.email"  placeholder="Ex: meu@email.com" required aria-required="O email precisa estar preenchido!">
                             <div v-if=" errors.email" class="error-message">
-                                <i>{{ errors.email }}</i>
+                                <i>{{ errors.email[0] }}</i>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>CPF:<b color="red" class="require-class">*</b></label>
-                            <input type="text" class="form-control" v-mask="'###.###.###-##'" v-model="user.cpf" required="CPF obrigatório.">
+                            <input type="text" class="form-control" v-mask="'###.###.###-##'"  placeholder="Ex: 123.122.122-55" v-model="user.cpf" required="CPF obrigatório.">
                             <div v-if="errors.cpf" class="error-message">
-                                <i>{{ errors.cpf }}</i>
+                                <i>{{ errors.cpf[0] }}</i>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Telefone:</label>
-                            <input type="text" class="form-control" v-mask="'(##)#####-####'" v-model="user.phone" >
+                            <input type="text" class="form-control" v-mask="'(##) #####-####'"  placeholder="Ex: (82) 99123-3234" v-model="user.phone" >
                             <div v-if="errors.phone" class="error-message">
-                                <i>{{ errors.phone }}</i>
+                                <i>{{ errors.phone[0] }}</i>
                             </div>
                         </div>
                         <div class="form-group">
@@ -47,7 +47,7 @@
                                 @tags-changed="newTags => tags = newTags"
                             />
                             <div v-if="errors.competences" class="error-message">
-                                <i>{{ errors.competences }}</i>
+                                <i>{{ errors.competences[0] }}</i>
                             </div>
                             <!-- </select> -->
                             <button type="submit" class="btn btn-primary col-12">Registre-se</button>

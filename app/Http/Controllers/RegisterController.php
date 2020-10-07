@@ -59,11 +59,11 @@ class RegisterController extends Controller
     public function createUser(Request $request)
     {
         $messagesFormated = [
-            'required' => 'Este campo é obrigatório.',
-            'unique' => ':attribute já está em uso.',
-            'min' => 'O campo está no formato incorreto.',
-            'max' => 'O campo está no formato incorreto.',
-            'email' => ':email está no formato incorreto'
+            'required' => '* Este campo é obrigatório.',
+            'unique' => '* Esse :attribute já está em uso.',
+            'min' => '* O campo :attribute está no formato incorreto.',
+            'max' => '* O campo está no formato incorreto.',
+            'email' => '* :email está no formato incorreto'
         ];
 
         $validatedData = $request->validate([
@@ -89,7 +89,6 @@ class RegisterController extends Controller
             ));
 
             if (count($competences) > 0 ) {
-
                 foreach ($competences as &$competence) {
                     DB::table('competences')->insert(array(
                         'user_id'     => $userId,
@@ -111,9 +110,4 @@ class RegisterController extends Controller
     {
         return view('app');
     } 
-
-    public function showRegistries(Request $request)
-    {
-        return view('app');
-    }
 }
