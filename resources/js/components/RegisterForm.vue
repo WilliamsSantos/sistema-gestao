@@ -42,6 +42,7 @@
                                 v-model="tag"
                                 fit
                                 :tags="tags"
+                                max-tags="3"
                                 add-only-from-autocomplete
                                 :autocomplete-items="filteredItems"
                                 @tags-changed="newTags => tags = newTags"

@@ -2064,6 +2064,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -41104,6 +41105,7 @@ var render = function() {
                           attrs: {
                             fit: "",
                             tags: _vm.tags,
+                            "max-tags": "3",
                             "add-only-from-autocomplete": "",
                             "autocomplete-items": _vm.filteredItems
                           },
