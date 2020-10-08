@@ -9,7 +9,7 @@
 
 ## Sobre o projeto
 
-Para rodar o projeto deve se dividir o processo em duas pequenas etapas: 
+Para rodar o projeto deve se dividir o processo em três pequenas etapas iniciais: 
 - 1º Instalar os pacotes do node com npm ou yarn na pasta raiz do projeto.
 - 2º Acessar o front feito em vue abrindo o terminal e rodando o comando com npm run watch ou yarn run watch(consulte para confirmar o comando), assim ele iniciará o servidor do vueJs para desenvolvimento.
 - 3ª Rodar o servidor da aplicação, na pasta raiz do projeto digite o comando php artisan serve.
