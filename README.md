@@ -15,17 +15,20 @@ Para rodar o projeto deve se dividir o processo em duas pequenas etapas:
 - 3ª Rodar o servidor da aplicação, na pasta raiz do projeto digite o comando php artisan serve.
 
 A aplicação está dividida entre dois end-points sendo eles:
-
 - http://127.0.0.1:8000/<seu_nome>/registrar
+
 Aqui contem um formulario aonde voce pode cadastras os seus dados basicos.
 
 - http://127.0.0.1:8000/<nome_do_admin>/validar
 Essa rota é protegita, então somente um administrador pode entrar para validar os registros.
 
-O administrador que acessa a url validar está pré configurado como um arquivo seed, então rode: 
+Rode as Migrates, para criar as tabelas no banco de dados:
+- php artisan migrate
+
+O administrador que acessa a url "validar" está pré configurado como um arquivo seed, então rode: 
 - php artisan db:seed --class=UserAdminSeeder
  
 Após isso use o nome: Perdo-admin-2222 para acessar a rota validar.
-## License
 
+## License
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
