@@ -26,7 +26,7 @@ class ValidateController extends Controller
                         ->where('id', $userId)
                             ->update(['validate' => true]);
             \DB::commit();
-            return response()->json('The user was successfully update');
+            return response()->json('Usuário validado!');
         } catch (\Throwable $th) {
             \DB::rollback();
             throw $th;

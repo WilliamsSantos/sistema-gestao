@@ -8,25 +8,15 @@ use App\User;
 class RegisterController extends Controller
 {
     /**
-    * Display a listing of the resource and validate the registers.
+    * List all users registered.
     *
     * @return \Illuminate\Http\Response
     */
-    public function register(Request $request)
-    {
-        try {
-            $arrayCompetences = DB::table('competences')->get();
-            return response()->view('app')->send(['competences' => $arrayCompetences]);
-        } catch (\Throwable $th) {
-            throw $th;
-        }
-    }
-
     public function listAllRegistries(Request $request)
     {
         try {
-            $usersDatasArray = [];
             $usersData = DB::table('users')->orderBy('name')->get();
+            $usersDatasArray = [];
 
             if (count($usersData) > 0) {
                 foreach ($usersData as &$user) {
@@ -40,11 +30,13 @@ class RegisterController extends Controller
                                 $competence->description
                             ));
                         };
+
                         array_push($usersDatasArray, $user);
                     }
                 };
             }
-            return response()->json($usersDatasArray);
+
+            return response()->json($usersDatasArray, 200);
 
         } catch (\Throwable $th) {
             throw $th;
@@ -52,18 +44,18 @@ class RegisterController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Creating a new user register.
      *
      * @return \Illuminate\Http\Response
      */
     public function createUser(Request $request)
     {
         $messagesFormated = [
-            'required' => '* Este campo é obrigatório.',
-            'unique' => '* Esse :attribute já está em uso.',
             'min' => '* O campo :attribute está no formato incorreto.',
             'max' => '* O campo está no formato incorreto.',
-            'email' => '* :email está no formato incorreto'
+            'email' => '* :email está no formato incorreto',
+            'unique' => '* Esse :attribute já está em uso.',
+            'required' => '* Este campo é obrigatório.'
         ];
 
         $validatedData = $request->validate([
@@ -73,14 +65,16 @@ class RegisterController extends Controller
             'competences' => 'required|min:1|max:3'
         ], $messagesFormated);
 
-        $name  = $request->input('name');
-        $email = $request->input('email');
-        $cpf   = $request->input('cpf');  
-        $phone = $request->input('phone');
+        $name  = trim($request->input('name'));
+        $email = trim($request->input('email'));
+        $cpf   = trim($request->input('cpf'));  
+        $phone = str_replace(' ', '', $request->input('phone'));
         $competences = $request->input('competences');
 
         try {
+
             \DB::beginTransaction();
+
             $userId = DB::table('users')->insertGetId(array(
                 'name'  => $name,
                 'email' => $email,
@@ -98,7 +92,7 @@ class RegisterController extends Controller
             }
 
             \DB::commit();
-            return response()->json('Usuário cadastrado com sucesso!');
+            return response()->json('Usuário cadastrado com sucesso!', 200);
 
         } catch (\Throwable $th) {
             \DB::rollback();
@@ -106,7 +100,8 @@ class RegisterController extends Controller
         }
     }
 
-    public function index(Request $request)
+    // Only render the app componet
+    public function render(Request $request)
     {
         return view('app');
     } 

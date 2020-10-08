@@ -25,7 +25,7 @@
                 <td>{{ user.cpf }}</td>
                 <td>
                     <vue-tags-input
-                        :tags="user.competences[0]"
+                        :tags="user.competences"
                         readonly
                         placeholder=""
                         disabled
@@ -69,8 +69,18 @@
         methods: {
             getAllUsersData(){
                 axios.get('http://127.0.0.1:8000/api/users')
-                        .then(response => {
+                        .then(response => { 
                             this.users = response.data
+                            for (let userIterator = 0; userIterator < this.users.length; userIterator++) {
+                                const user = this.users[userIterator];
+                                for (let competenceIterator = 0; 
+                                         competenceIterator < user.competences.length; 
+                                         competenceIterator++
+                                    ){
+                                    const competence = user.competences[competenceIterator][0];
+                                    user.competences[competenceIterator] = competence;
+                                }
+                            }
                         })
             },
             async validateRegister(id) {
@@ -82,6 +92,7 @@
             }
         },
         computed: {
+            // Its not possible yet search a row in the table by the competencies
             queryResults() {
                 if(!this.search) return this.users
 
@@ -98,7 +109,7 @@
                         option.email
                     ].map(toScore => fz.score(toScore, this.search, { preparedQuery }))
 
-                    scores[option.id] = Math.max(...scorableFields, ...competences)
+                    scores[option.id] = Math.max(...scorableFields)
                     return option
                     })
                     .filter(option => scores[option.id] > 1)
@@ -115,7 +126,6 @@
         font-weight: bolder;
         color: green;
     }
-
     .notValidate{
         font-weight: bolder;
         color: red;

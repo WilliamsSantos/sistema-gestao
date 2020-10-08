@@ -63,7 +63,6 @@
 <script>
     import VueAxios from 'vue-axios';
     import axios from 'axios';
-    import FormError from './FormError.vue';
     import VueTagsInput from '@johmun/vue-tags-input';
 
     export default {
@@ -74,7 +73,7 @@
             }
         },
         components: {
-            FormError, VueTagsInput
+            VueTagsInput
         },
         data() {
             return {
